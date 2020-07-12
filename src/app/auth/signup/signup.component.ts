@@ -1,0 +1,35 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SignupFormField } from './signup-form-field';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs';
+@Component({
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
+})
+export class SignupComponent implements OnInit, OnDestroy {
+  isLoading = false;
+  signupModel = new SignupFormField();
+  authStatusSub : Subscription;
+  constructor(public authService: AuthService) { }
+
+  ngOnInit(): void {
+    this.authStatusSub = this.authService.getAuthStatusListner().subscribe((authStatus)=>{
+      this.isLoading = false;
+    })
+  }
+
+  onSignUp(form: NgForm) {
+    if(form.invalid) {
+      return
+    }
+    this.isLoading = true;
+    this.authService.createUser(this.signupModel.email, this.signupModel.password);
+
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
+  }
+}

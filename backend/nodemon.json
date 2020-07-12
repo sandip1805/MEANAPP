@@ -1,0 +1,6 @@
+{
+    "env": {
+      "MONGODB_CONNECTION_URL":"mongodb://localhost:27017/angular-node",
+      "JWT_SECRET":"this_secret_shouldbe_longer"
+    }
+}

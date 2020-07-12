@@ -1,0 +1,67 @@
+<!-- <textarea rows="8" [value]="newPost" #userInput></textarea>
+<hr>
+<button (click)="onAddPost(userInput)">Save Post</button>
+<br>
+{{ newPost }} -->
+<!-- <mat-card>
+<mat-form-field class="example-full-width">
+  <mat-label>Title</mat-label>
+  <input type="text" matInput placeholder="Title" [(ngModel)]="enteredTitle">
+</mat-form-field>
+<mat-form-field class="example-full-width">
+  <mat-label>Description</mat-label>
+  <textarea matInput placeholder="Description"  rows="8" [(ngModel)]="enteredContent"></textarea>
+  <button mat-raised-button color="primary" (click)="onAddPost()">Save Post</button>
+</mat-form-field>
+</mat-card> -->
+ <!--  <textarea matInput rows="8" [(ngModel)]="enteredValue"></textarea> -->
+<!-- <br>
+{{ newPost }} -->
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-card>
+  <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput
+      type="text"
+      placeholder="Title"
+      name="title"
+      [ngModel]="post?.title"
+      required
+      #title=ngModel>
+      <mat-error *ngIf="title.invalid">Title field is required.</mat-error>
+      <!-- <input matInput
+      type="text"
+      placeholder="Title"
+      name="title"
+      ngModel
+      required>
+      <mat-error *ngIf="postForm.getControl('title').invalid">Title field is required.</mat-error> //with out #title=ngModel  -->
+    </mat-form-field>
+
+    <div>
+      <button type="button" mat-stroked-button (click)="filePicker.click()">Pick Image</button>
+      <input type="file" name="file" ngModel (change)="onImagePicked($event)" #filePicker #fileInput=ngModel>
+      <mat-error *ngIf="fileInput.invalid">File is required.</mat-error>
+    </div>
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+      <img [src]="imagePreview" [alt]="post?.title">
+    </div>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+      matInput
+      placeholder="Description"
+      rows="4"
+      name="content"
+      [ngModel]="post?.content"
+      required
+      #content=ngModel>
+     </textarea>
+     <mat-error *ngIf="content.invalid">Content field is required.</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid">Save Post</button>
+  </form>
+  </mat-card>
